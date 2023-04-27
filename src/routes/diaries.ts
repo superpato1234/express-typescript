@@ -1,14 +1,24 @@
 import express from "express";
+import { addNote, getNotes } from "../utils/functions";
+import { Note } from "../types/types";
 
 const router = express.Router();
 
-
 router.get("/",(_req,res)=>{
-    res.send("fetching all entries diaries ");
+    const notes = getNotes();
+    res.send({
+        notes
+    });
 })
 
-router.post("/",(_req,res)=>{
+router.post("/",(req,res)=>{
     res.send("saving a diary");
-})  
+    addNote(req.body as Note);
+})
+
+router.delete("/",(_req,res)=>{
+    res.send("todo salio bien")
+    res.statusCode = 200; 
+})
 
 export default router;
